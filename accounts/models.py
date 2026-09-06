@@ -54,3 +54,25 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+class TrainerProfile(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="trainer_profile"
+    )
+    bio = models.TextField(blank=True)
+    specialty = models.CharField(max_length=100, blank=True)
+    twitter_url = models.URLField(blank=True)
+    facebook_url = models.URLField(blank=True)
+    instagram_url = models.URLField(blank=True)
+    linkedin_url = models.URLField(blank=True)
+
+    def __str__(self):
+        return f"Trainer: {self.user.email}"
+
+
+class StudentProfile(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="student_profile"
+    )
+
+    def __str__(self):
+        return f"Student: {self.user.email}"

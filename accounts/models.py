@@ -54,6 +54,9 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+    @property
+    def is_profile_complete(self):
+        return bool(self.role and self.first_name and self.last_name)
 class TrainerProfile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="trainer_profile"

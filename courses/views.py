@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.exceptions import PermissionDenied
 
 # Create your views here.
 from rest_framework import viewsets, permissions, generics
@@ -32,8 +33,12 @@ class CourseViewSet(viewsets.ModelViewSet):
             return [permissions.IsAuthenticated(), IsProfileComplete()]
         return super().get_permissions()
 
+
     def perform_create(self, serializer):
-        serializer.save(trainer=self.request.user.trainer_profile)
+        user = self.request.user
+        if not hasattr(user, "trainer_profile"):
+            raise PermissionDenied("only trainers can create course")
+        serializer.save(trainer=user.trainer_profile)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

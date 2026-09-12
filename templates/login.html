@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<main class="main">
+
+  <div class="page-title" data-aos="fade">
+    <div class="heading">
+      <div class="container">
+        <div class="row d-flex justify-content-center text-center">
+          <div class="col-lg-8">
+            <h1>Login</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="contact section">
+    <div class="container" data-aos="fade-up">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+              <div class="alert alert-danger">
+                <p>Invalid email or password.</p>
+              </div>
+            {% endif %}
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              {{ form.username }}
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              {{ form.password }}
+            </div>
+
+            <div class="text-center">
+              <button type="submit">Login</button>
+            </div>
+          </form>
+          <p class="text-center mt-3">Don't have an account? <a href="{% url 'register-page' %}">Register</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+{% endblock %}

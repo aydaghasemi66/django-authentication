@@ -7,7 +7,9 @@ from accounts.views_pages import (
     RegisterPageView, CompleteProfilePageView, UserLoginView, UserLogoutView,
 )
 from courses.views_pages import AddCommentView
-
+from order.views_pages import (
+    AddToCartView, RemoveFromCartView, CartPageView, CheckoutView, MyEnrollmentsPageView,
+)
 
 
 urlpatterns = [
@@ -32,4 +34,9 @@ urlpatterns = [
     path("courses/", CourseListPageView.as_view(), name="courses-page"),
     path("courses/<slug:slug>/", CourseDetailPageView.as_view(), name="course-detail-page"),
     path("courses/<slug:slug>/comment/", AddCommentView.as_view(), name="add-comment-page"),
+    path("courses/<slug:slug>/enroll/", AddToCartView.as_view(), name="add-to-cart"),
+    path("cart/", CartPageView.as_view(), name="cart-page"),
+    path("cart/remove/<int:item_id>/", RemoveFromCartView.as_view(), name="remove-from-cart"),
+    path("checkout/", CheckoutView.as_view(), name="checkout-page"),
+    path("my-courses/", MyEnrollmentsPageView.as_view(), name="my-enrollments-page"),
 ]

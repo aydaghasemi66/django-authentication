@@ -229,8 +229,14 @@
                   </div>
                 </div>
 
-                <button class="btn-enroll">Enroll Now</button>
-                <button class="btn-preview">Preview Course</button>
+  {% if user.is_authenticated %}
+<form method="post" action="{% url 'add-to-cart' course.slug %}">
+  {% csrf_token %}
+  <button type="submit" class="btn-enroll">Enroll Now</button>
+</form>
+{% else %}
+<a href="{% url 'login' %}" class="btn-enroll">Login to Enroll</a>
+{% endif %}
               </div><!-- End Pricing Card -->
 
               <!-- Course Info -->
